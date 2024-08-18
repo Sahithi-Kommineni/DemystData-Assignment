@@ -1,0 +1,29 @@
+To simulate large data files, we should generate enough lines with the required fixed-width format.
+```
+import random
+import string
+
+def random_string(length):
+    return ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + ' ', k=length))
+
+def generate_large_sample_file(file_path, num_lines):
+    with open(file_path, 'w') as f:
+        for _ in range(num_lines):
+            line = (
+                random_string(5).ljust(5) +
+                random_string(12).ljust(12) +
+                random_string(3).ljust(3) +
+                random_string(2).ljust(2) +
+                random_string(13).ljust(13) +
+                random_string(7).ljust(7) +
+                random_string(10).ljust(10) +
+                random_string(13).ljust(13) +
+                random_string(20).ljust(20) +
+                random_string(13).ljust(13)
+            )
+            f.write(line + '\n')
+
+# Generate a sample file with 10000 lines (adjust as needed)
+generate_large_sample_file('data/sample_input.txt', 10000)
+
+```
