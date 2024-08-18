@@ -2,3 +2,6 @@ Ensure the Python packages are listed for installation:
 ```
 Pandas
 ```
+def parse(data):
+    # Function to parse data
+    pass
