@@ -1,30 +1,26 @@
-We can test the code using below script
+These scripts will contain unit tests for the parser and anonymizer to ensure they work correctly.
 
 ```
 import unittest
 import os
-import pandas as pd
-from src.anonymizer import anonymize_csv
+from src.parser import parse_fixed_width_file
 
-class TestAnonymizer(unittest.TestCase):
+class TestParser(unittest.TestCase):
 
     def setUp(self):
-        self.input_file = 'data/test_output.csv'
-        self.output_file = 'data/test_anonymized_output.csv'
-        self.columns_to_anonymize = ['f1', 'f2', 'f3']
+        self.spec_file = 'specs/Spec.json'
+        self.input_file = 'data/sample_input.txt'
+        self.output_file = 'data/test_output.csv'
     
-    def test_anonymize_csv(self):
-        anonymize_csv(self.input_file, self.output_file, self.columns_to_anonymize)
+    def test_parse_fixed_width_file(self):
+        parse_fixed_width_file(self.spec_file, self.input_file, self.output_file)
         self.assertTrue(os.path.exists(self.output_file))
 
-        df = pd.read_csv(self.output_file)
-        for column in self.columns_to_anonymize:
-            self.assertNotEqual(df[column][0], 'original_value')  # Adjust 'original_value' based on your data
-    
     def tearDown(self):
         if os.path.exists(self.output_file):
             os.remove(self.output_file)
 
 if __name__ == '__main__':
     unittest.main()
+
 ```
